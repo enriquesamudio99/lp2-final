@@ -1,0 +1,8 @@
+[
+  {
+    "id": 1,
+    "descripcion": "Comida",
+    "monto": 100000,
+    "fecha": [2024,12,18]
+  }
+]
