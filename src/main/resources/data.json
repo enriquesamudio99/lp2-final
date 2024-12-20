@@ -1,8 +1,1 @@
-[
-  {
-    "id": 1,
-    "descripcion": "Comida",
-    "monto": 100000,
-    "fecha": [2024,12,18]
-  }
-]
+[{"id":1,"descripcion":"Comida","monto":100000.0,"fecha":[2024,12,18]},{"id":2,"descripcion":"Netflix","monto":30000.0,"fecha":[2024,12,19]}]

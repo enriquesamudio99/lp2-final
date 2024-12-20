@@ -22,4 +22,16 @@ public class GastoService {
     Gasto data = repository.getById(id);
     return data;
   }
+
+  public void save(Gasto param){
+    repository.save(param);
+  } 
+
+  public void update(Gasto param){
+    repository.update(param);
+  }
+
+  public void delete(Integer id){
+    repository.delete(id);
+  }
 }

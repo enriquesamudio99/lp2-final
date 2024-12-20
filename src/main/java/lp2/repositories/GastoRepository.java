@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,5 +49,44 @@ public class GastoRepository {
         .filter(item -> item.getId().equals(id))
         .findFirst()
         .orElse(null);
+  }
+
+  public void save(Gasto param) {
+    try {
+      List<Gasto> newList = this.list;
+      Gasto itemExists = getById(param.getId());
+      if (itemExists == null) {
+        newList.add(param);
+        mapper.writeValue(new File(FILE_PATH), newList);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void update(Gasto param) {
+    try {
+      Gasto itemExists = getById(param.getId());
+      if (itemExists != null) {
+        int index = list.indexOf(itemExists);
+        if (index >= 0) {
+          list.set(index, param);
+          mapper.writeValue(new File(FILE_PATH), list);
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void delete(Integer id) {
+    list = list.stream()
+        .filter(item -> !item.getId().equals(id))
+        .collect(Collectors.toList());
+    try {
+      mapper.writeValue(new File(FILE_PATH), list);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
