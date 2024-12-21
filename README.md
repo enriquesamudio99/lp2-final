@@ -59,10 +59,73 @@ If you want to learn more about building native executables, please consult <htt
 - SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
 - REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
 
-## Provided Code
+### REST Endpoints
+#### Gastos
 
-### REST
+Los datos de cada gasto incluyen los siguientes atributos:
+- **id**: Identificador único del gasto.
+- **descripcion**: Descripción del gasto (Ej: "Universidad").
+- **monto**: Monto del gasto.
+- **fecha**: Fecha en que se realizó el gasto.
 
-Easily start your REST Web Services
+La API está disponible en el siguiente endpoint base:  
+`http://localhost:8080/gastos`
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+### 1. Obtener Gastos (GET)
+
+**URL**: `http://localhost:8080/gastos`  
+**Método HTTP**: `GET`
+
+### 2. Obtener Gastos por ID (GET)
+
+**URL**: `http://localhost:8080/gastos/{id}`  
+**Método HTTP**: `GET`
+
+
+### 3. Crear un gasto (POST)
+
+**URL**: `http://localhost:8080/gastos`  
+**Método HTTP**: `POST`
+
+#### Cuerpo de la solicitud (JSON):
+```json
+{
+  "id": 1,
+  "descripcion": "Universidad",
+  "monto": 750000,
+  "fecha": "2024-12-20"
+}
+```
+
+### 4. Editar un gasto (PUT)
+
+**URL**: `http://localhost:8080/gastos`  
+**Método HTTP**: `PUT`
+
+#### Cuerpo de la solicitud (JSON):
+```json
+{
+  "id": 1,
+  "descripcion": "Universidad",
+  "monto": 750000,
+  "fecha": "2024-12-20"
+}
+```
+
+### 5. Eliminar un gasto (DELETE)
+
+**URL**: `http://localhost:8080/gastos/{id}`  
+**Método HTTP**: `DELETE`
+
+### 6. Obtener Promedio de Gastos por dia (GET)
+
+**URL**: `http://localhost:8080/gastos/promedio`  
+**Método HTTP**: `GET`
+
+
+### 7. Obtener Gastos por rango de fechas (GET)
+
+**URL**: `http://localhost:8080/gastos/rango?fechaInicio=2024-12-01&fechaFin=2024-12-31`  
+**Método HTTP**: `GET`
+
+

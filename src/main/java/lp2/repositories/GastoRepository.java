@@ -2,8 +2,11 @@ package lp2.repositories;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -87,6 +90,46 @@ public class GastoRepository {
       mapper.writeValue(new File(FILE_PATH), list);
     } catch (Exception e) {
       e.printStackTrace();
+    }
+  }
+
+  public double getAverage() {
+    try {
+      Map<LocalDate, Double> gastoPorFecha = new HashMap<>();
+
+      for (Gasto gasto : list) {
+        LocalDate fecha = gasto.getFecha();
+        double monto = gasto.getMonto();
+
+        gastoPorFecha.put(fecha, gastoPorFecha.getOrDefault(fecha, 0.0) + monto);
+      }
+
+      double montoTotal = 0;
+      for (double total : gastoPorFecha.values()) {
+        montoTotal += total;
+      }
+
+      int diasDistintos = gastoPorFecha.size();
+
+      if (diasDistintos == 0) {
+        return 0;
+      }
+
+      return montoTotal / diasDistintos;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return 0;
+    }
+  }
+
+  public List<Gasto> getByDateRange(LocalDate fechaInicio, LocalDate fechaFin) {
+    try {
+      return list.stream()
+          .filter(gasto -> !gasto.getFecha().isBefore(fechaInicio) && !gasto.getFecha().isAfter(fechaFin))
+          .collect(Collectors.toList());
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new ArrayList<>();
     }
   }
 }

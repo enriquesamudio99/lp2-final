@@ -1,5 +1,6 @@
 package lp2.resources;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.ws.rs.DELETE;
@@ -9,6 +10,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lp2.models.Gasto;
@@ -54,5 +56,25 @@ public class GastoResource {
   @Produces(MediaType.APPLICATION_JSON)
   public void delete(@PathParam("id") Integer id) {
     this.service.delete(id);
+  }
+
+  @GET
+  @Path("promedio")
+  @Produces(MediaType.APPLICATION_JSON)
+  public double getAverage() {
+    return this.service.getAverage();
+  }
+
+  @GET 
+  @Path("rango")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Gasto> getByDateRange(
+    @QueryParam("fechaInicio") String fechaInicioParam,
+    @QueryParam("fechaFin") String fechaFinParam
+  ) {
+    LocalDate fechaInicio = LocalDate.parse(fechaInicioParam);
+    LocalDate fechaFin = LocalDate.parse(fechaFinParam);
+
+    return this.service.getByDateRange(fechaInicio, fechaFin);
   }
 }

@@ -1,5 +1,6 @@
 package lp2.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -33,5 +34,13 @@ public class GastoService {
 
   public void delete(Integer id){
     repository.delete(id);
+  }
+
+  public double getAverage(){
+    return repository.getAverage();
+  }
+
+  public List<Gasto> getByDateRange(LocalDate fechaInicio, LocalDate fechaFin){
+    return repository.getByDateRange(fechaInicio, fechaFin);
   }
 }
